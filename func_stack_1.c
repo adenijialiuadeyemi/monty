@@ -2,7 +2,7 @@
 void add_to_stack(stack_t **new_node, __attribute__((unused))unsigned int ln);
 void add_to_queue(stack_t **new_node, __attribute__((unused))unsigned int ln);
 void print_stack(stack_t **stack, unsigned int line_number);
-void print_top(stack_t **stack, unsigned int line_number);
+void top_print(stack_t **stack, unsigned int line_number);
 void pop_top(stack_t **stack, unsigned int line_number);
 /**
  * add_to_stack - Append a node to the stack LIFO.
@@ -73,15 +73,15 @@ void print_stack(stack_t **stack, unsigned int line_number)
 	}
 }
 /**
- * print_top - output top value
+ * top_print - output top value
  * @stack: Pointing to the top node
  * @line_number: opcode line number.
  * Return: void
  */
-void print_top(stack_t **stack, unsigned int line_number)
+void top_print(stack_t **stack, unsigned int line_number)
 {
 	if (stack == NULL || *stack == NULL)
-		more_err(6, line_number);
+		err_more(6, line_number);
 	printf("%d\n", (*stack)->n);
 }
 /**
@@ -95,7 +95,7 @@ void pop_top(stack_t **stack, unsigned int line_number)
 	stack_t *temp;
 
 	if (stack == NULL || *stack == NULL)
-		more_err(7, line_number);
+		err_more(7, line_number);
 
 	temp = *stack;
 	*stack = temp->next;

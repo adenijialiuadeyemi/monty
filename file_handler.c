@@ -1,15 +1,15 @@
 #include "monty.h"
-void open_file(char *file_name);
-void read_file(FILE *fd);
+void file_open(char *file_name);
+void file_read(FILE *fd);
 int interpret_line(char *lineptr, int line_number, int format);
 void find_func(char *opcode, char *value, int ln, int format);
-void call_fun(op_func f, char *op, char *val, int ln, int format);
+void func_call(op_func f, char *op, char *val, int ln, int format);
 /**
- * open_file - oening file
+ * file_open - oening file
  * @file_name: file name
  * Return: void
  */
-void open_file(char *file_name)
+void file_open(char *file_name)
 {
 	FILE *file_descr;
 
@@ -20,14 +20,14 @@ void open_file(char *file_name)
 	file_descr = fopen(file_name, "r");
 	if (file_descr == NULL)
 		err(2, file_name);
-	read_file(file_descr);
+	file_read(file_descr);
 	fclose(file_descr);
 }
 /**
- * read_file - reading the file
+ * file_read - reading the file
  * @fd: file_descr
  */
-void read_file(FILE *fd)
+void file_read(FILE *fd)
 {
 	int line_num;
 	int fmt;
@@ -92,14 +92,14 @@ void find_func(char *opcode, char *value, int ln, int format)
 	instruction_t func_list[] = {
 		{"push", add_to_stack},
 		{"pall", print_stack},
-		{"pint", print_top},
+		{"pint", top_print},
 		{"pop", pop_top},
 		{"nop", nop},
-		{"swap", swap_nodes},
-		{"add", add_nodes},
+		{"swap", nodes_swap},
+		{"add", nodes_sum},
 		{"sub", sub_nodes},
 		{"div", div_nodes},
-		{"mul", mul_nodes},
+		{"mul", nodes_mul},
 		{"mod", mod_nodes},
 		{"pchar", print_char},
 		{"pstr", print_str},
@@ -114,7 +114,7 @@ void find_func(char *opcode, char *value, int ln, int format)
 	{
 		if (strcmp(opcode, func_list[c].opcode) == 0)
 		{
-			call_fun(func_list[c].f, opcode, value, ln, format);
+			func_call(func_list[c].f, opcode, value, ln, format);
 			flg = 0;
 		}
 	}
@@ -122,7 +122,7 @@ void find_func(char *opcode, char *value, int ln, int format)
 		err(3, ln, opcode);
 }
 /**
- * call_fun - func call
+ * func_call - func call
  * @f: func to called pointr
  * @op: str opcode repr
  * @val: str repr num
@@ -131,7 +131,7 @@ void find_func(char *opcode, char *value, int ln, int format)
  * 1 if nodes will be entered as a queue
  * Return: void
  */
-void call_fun(op_func f, char *op, char *val, int ln, int format)
+void func_call(op_func f, char *op, char *val, int ln, int format)
 {
 	stack_t *nd;
 	int flg;

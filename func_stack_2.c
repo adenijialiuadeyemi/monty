@@ -1,7 +1,7 @@
 #include "monty.h"
 void nop(stack_t **stack, unsigned int line_number);
-void swap_nodes(stack_t **stack, unsigned int line_number);
-void add_nodes(stack_t **stack, unsigned int line_number);
+void nodes_swap(stack_t **stack, unsigned int line_number);
+void nodes_sum(stack_t **stack, unsigned int line_number);
 void sub_nodes(stack_t **stack, unsigned int line_number);
 void div_nodes(stack_t **stack, unsigned int line_number);
 /**
@@ -16,17 +16,17 @@ void nop(stack_t **stack, unsigned int line_number)
 	(void)line_number;
 }
 /**
- * swap_nodes - swap nodes
+ * nodes_swap - swap nodes
  * @stack: pointing to top node
  * @line_number: opcode line num
  * Return: void
  */
-void swap_nodes(stack_t **stack, unsigned int line_number)
+void nodes_swap(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp;
 
 	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
-		more_err(8, line_number, "swap");
+		err_more(8, line_number, "swap");
 
 	temp = (*stack)->next;
 	(*stack)->next = temp->next;
@@ -40,17 +40,17 @@ void swap_nodes(stack_t **stack, unsigned int line_number)
 	*stack = temp;
 }
 /**
- * add_nodes - sum top nodes
+ * nodes_sum - sum top nodes
  * @stack: pointing to top node
  * @line_number: opcode line num
  * Return: void
  */
-void add_nodes(stack_t **stack, unsigned int line_number)
+void nodes_sum(stack_t **stack, unsigned int line_number)
 {
 	int add_tops;
 
 	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
-		more_err(8, line_number, "add");
+		err_more(8, line_number, "add");
 
 	(*stack) = (*stack)->next;
 	add_tops = (*stack)->n + (*stack)->prev->n;
@@ -70,7 +70,7 @@ void sub_nodes(stack_t **stack, unsigned int line_number)
 
 	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
 
-		more_err(8, line_number, "sub");
+		err_more(8, line_number, "sub");
 
 
 	(*stack) = (*stack)->next;
@@ -90,10 +90,10 @@ void div_nodes(stack_t **stack, unsigned int line_number)
 	int add_tops;
 
 	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
-		more_err(8, line_number, "div");
+		err_more(8, line_number, "div");
 
 	if ((*stack)->n == 0)
-		more_err(9, line_number);
+		err_more(9, line_number);
 	(*stack) = (*stack)->next;
 	add_tops = (*stack)->n / (*stack)->prev->n;
 	(*stack)->n = add_tops;

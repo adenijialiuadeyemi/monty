@@ -49,12 +49,12 @@ typedef void (*op_func)(stack_t **, unsigned int);
 
 /**** FILE OPERATIONS ****/
 
-void open_file(char *);
-void read_file(FILE *);
+void file_open(char *);
+void file_read(FILE *);
 int len_chars(FILE *);
 int interpret_line(char *, int, int);
 void find_func(char *, char *, int, int);
-void call_fun(op_func, char *, char *, int, int);
+void func_call(op_func, char *, char *, int, int);
 
 /**** Operations on stack ****/
 
@@ -63,17 +63,17 @@ void free_nodes(void);
 void print_stack(stack_t **, unsigned int);
 void add_to_stack(stack_t **, unsigned int);
 void add_to_queue(stack_t **, unsigned int);
-void print_top(stack_t **, unsigned int);
+void top_print(stack_t **, unsigned int);
 void pop_top(stack_t **, unsigned int);
 void nop(stack_t **, unsigned int);
-void swap_nodes(stack_t **, unsigned int);
+void nodes_swap(stack_t **, unsigned int);
 
 /**** Operations with node based on math ****/
 
-void add_nodes(stack_t **, unsigned int);
+void nodes_sum(stack_t **, unsigned int);
 void sub_nodes(stack_t **, unsigned int);
 void div_nodes(stack_t **, unsigned int);
-void mul_nodes(stack_t **, unsigned int);
+void nodes_mul(stack_t **, unsigned int);
 void mod_nodes(stack_t **, unsigned int);
 
 /**** Operations on strings  ****/
@@ -85,8 +85,8 @@ void rotr(stack_t **, unsigned int);
 
 /*** STDERROR MESSAGE HANDLERS ****/
 
-void err(int error_code, ...);
-void more_err(int error_code, ...);
-void string_err(int error_code, ...);
+void err(int err_code, ...);
+void err_more(int err_code, ...);
+void strng_err(int err_code, ...);
 
 #endif /* MONTY_H */
